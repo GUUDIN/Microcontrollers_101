@@ -1,8 +1,8 @@
 # 🎓 Microcontrollers_101
 
-Repositório para o curso de Aplicação de Microcontroladores oferecido na USP-SP para a turma de 26' de Engenharia da Computação.
+Repositório para o curso de Aplicação de Microcontroladores oferecido na USP-SP para a turma de 021 de Engenharia da Computação.
 
-Este repositório contém várias atividades práticas. Cada atividade tem seu próprio diretório, e cada diretório contém um arquivo README.md com as instruções para a atividade.
+Este repositório contém várias atividades práticas. Cada atividade tem seu próprio diretório, e cada diretório contém um arquivo README.md com a entrega da maneira requisitada pelo professor.
 
 Por favor, siga os passos abaixo:
 
@@ -15,7 +15,7 @@ Por favor, siga os passos abaixo:
 
 Repo for the course in Aplicação de Microcontroladores given at USP-SP for the 26' class of Computer Engineering.
 
-This repository contains several practical activities. Each activity has its own directory, and each directory contains a README.md file with the instructions for the activity.
+This repository contains several practical activities. Each activity has its own directory, and each directory contains a README.md file with delivery requested by the professor.
 
 Please follow the steps below:
 
