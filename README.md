@@ -7,8 +7,7 @@ Este repositório contém várias atividades práticas. Cada atividade tem seu p
 Por favor, siga os passos abaixo:
 
 1. 📂 Navegue até o diretório da atividade que você deseja realizar.
-2. 📄 Abra o arquivo README.md.
-3. 📖 Leia as instruções.
+2. 📄 Leia o arquivo README.md.
 
 ---
 
@@ -21,5 +20,4 @@ This repository contains several practical activities. Each activity has its own
 Please follow the steps below:
 
 1. 📂 Navigate to the directory of the activity you wish to perform.
-2. 📄 Open the README.md file.
-3. 📖 Read the instructions.
+2. 📄 Read the README.md file.
