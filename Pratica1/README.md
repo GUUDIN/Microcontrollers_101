@@ -7,7 +7,30 @@ Este projeto abrange várias técnicas de manipulação de dados em Assembly uti
 ## 1. Manipulação de dados em registradores e endereços de memória por meio de instruções de transferência de dados
 
 ```assembly
-<resposta> ;(linhas de código comentadas)
+org 0000h	; coloca a origem no 0
+main:
+mov		a, #10h			; move o valor 10 de forma imediata no registrador acumulador acc - 1us(1 ciclo)
+mov		a, #00h			; move o valor 0 para o acc de forma imediata1us - 1us(1 ciclo)
+clr		rs0				;  1us(1 ciclo)
+clr		rs1				; limpa os bits rs0 e rs1 para garantir a selecao do primeiro bloco de registradores - 1us(1 ciclo)
+mov		r0, #04h		; move o valor 4 para o r0 - 1us(1 ciclo)
+mov		b, #02h			; move o valor 2 para o registrador b - 2us(2 ciclo)
+mov		32h, p1			;move para o endereco 32h o valor de p1 - 2us(2 ciclo)
+setb	rs0				; seleciona o segundo banco de registradores - 1us(1 ciclo)
+mov		r4, 32h			; move o valor que esta no endereco 32h para o registrador r4 - 2us(2 ciclo)
+mov		10h, r4			; move para o endereco 10h o valor que esta em r4 - 2us(2 ciclo)
+mov		r1, #10h		; move o valor 10h para r1 - 1us(1 ciclo)
+mov		a, @r1			; trata o r1 como ponteiro, ou seja, o conteudo de r1 e tratado como endereco - 1us(1 ciclo)
+mov		dptr, #9a5bh	; move o valor 9a5bh para o registrador dptr - 2us(2 ciclo)
+nop 					; gasta 1 ciclo de maquina 1us
+jmp		$				; gasta 2 ciclo de maquina 2us e segura o programa nesta linha
+end						; termina o programa
+; resposta questao (a): o tempo esta indicado no final dos comentarios de cada linha
+; resposta questao (b): 21us
+; resposta questao (c):	o valor e FF devido ao resistor de pull-up interno
+; resposta questao (d):	FF
+; resposta questao (e): pois dptr e um registrador de 16 bits. A mudanca ocorreu nos registradores dph e dpl. O maior valor e 0ffffh
+
 ```
 
 <a name='aritmetica'></a>
