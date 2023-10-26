@@ -170,7 +170,7 @@ Esta subrotina verifica se o switch 1 está acionado. Se estiver, ela pula as in
 ### Subrotinas `delay_025s` e `delay_1s`
 
 Estas subrotinas implementam os delays de 250 ms e 1 s, respectivamente. Elas usam loops e registradores para criar os delays, ajustando os valores para considerar o tempo de execução das instruções.
-A subrotina 'delay_025s' implementa um delay de 1ms e o repete 250 vezes, já a 'delay_1s' repete a subrotina 'delay_025s' quatro vezes, garantindo um delay de aproximadamente 1s (não é exato pois os custos de tempo das instruções alteram a precisão).
+A subrotina `delay_025s` implementa um delay de 1ms e o repete 250 vezes, já a `delay_1s` repete a subrotina `delay_025s` quatro vezes, garantindo um delay de aproximadamente 1s (não é exato pois os custos de tempo das instruções alteram a precisão).
 
 O programa em assembly foi escrito seguindo as seguintes especificações:
 
