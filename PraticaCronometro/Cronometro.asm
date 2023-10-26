@@ -1,3 +1,35 @@
+; Cronometro digital usando Assembly e 8051 (EdSim51)
+
+;----------------------------------
+; Display de 7 segmentos
+;     ___a___
+;   ||-------||
+;  f||       ||b
+;   ||___g___||
+;   ||-------||
+;  e||       ||c
+;   ||___d___||
+;     --------   + DP
+; Segmentos conectados aos LEDs da
+; PORTA P1
+;      DP g f e d c b a
+; P1 = 7  6 5 4 3 2 1 0  
+; bit = 1(apagado); bit = 0(acende)
+
+; Contagem de 0 a 9
+;0= C0h= 11000000b = a,b, c, d, f
+;1= F9h= 11111001b = b,c
+;2= A4h= 10100100b = a,b, d, e, g
+;3= B0h= 10110000b = a,b, c, d, g
+;4= 99h= 10011001b = b,c, f, g 
+;5= 92h= 10010010b = a,c, d, f, g
+;6= 82h= 10000010b = a,c, d, e, f,g
+;7= F8h= 11111000b = a, b, c
+;8= 80h= 10000000b = a,b,c,d,e,f,g
+;9= 90h= 10010000b = a,b,c, d, f, g
+;----------------------------------
+
+
 org 00h
 
 JMP inicio 								; Pula para o início do programa
