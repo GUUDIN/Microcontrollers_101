@@ -84,7 +84,7 @@ ligar_relogio:
 		MOV A, #082h ; Insere o equivalente ao número 6 no acumulador
 		MOV P1, A
 		JB SWITCH_0, desligar_relogio 
-CALL delay_switch
+	CALL delay_switch
 		MOV A, #0f8h ; Insere o equivalente ao número 7 no acumulador
 		MOV P1, A
 		JB SWITCH_0, desligar_relogio 
@@ -136,10 +136,18 @@ RET
 
 ## Diagrama esquemático
 
-- Coloque aqui o diagrama esquemático do circuito montado no EDSim51, mostrando os componentes e as conexões utilizados.
-- Por exemplo:
+![image](https://github.com/GUUDIN/Microcontrollers_101/assets/83839655/52068543-641b-402a-8a4e-fec735e79f26)
 
-![Diagrama esquemático](diagrama.png)
+Com este diagrama fornecido pelo próprio EdSim51, temos o microprocessador 8051 conectado ao banco de switches na porta 2 (P2.0 até P2.7) que estão em nível lógico alto (pull-up) e por isso consideramos o botão acionado quando bit = 0. Logo acima vemos o banco de displays de sete segmentos que têm seus segmentos conectados ao banco 1 do 8051 e o Chip Select de seu decoder conectado à porta P0.7.
+
+Os diplays são selecionados pela combinação lógica de bits dadas pelas saídas P3.3 e P3.4 que estão conectadas às entradas A1 e A2 do encoder. temos a seguinte tabela para a seleção dos displays:
+
+| **P3.3** | **P3.4** | **Display selecionado** |
+|:--------:|:--------:|:-----------------------:|
+|     0    |     0    |          DISP 0         |
+|     0    |     1    |          DISP 1         |
+|     1    |     0    |          DISP 2         |
+|     1    |     1    |          DISP 3         |
 
 ## Explicação
 
