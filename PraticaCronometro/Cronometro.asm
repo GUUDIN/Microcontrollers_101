@@ -1,66 +1,94 @@
-	org 00h
+org 00h
 
-JMP beggining
+JMP inicio 								; Pula para o início do programa
 
 	org 33h
 
-; declarar switch 0 (porta 2.0)
+										; Declaração dos switches (portas 2.0 e 2.1)
 SWITCH_0 EQU P2.0
-
-; declarar switch 1 (porta 2.1)
 SWITCH_1 EQU P2.1
 
-beggining:
-	CLR P3.3
+inicio:
+	CLR P3.3							; Seleciona o Display de sete segmentos mais à esquerda (0 & 0)
 	CLR P3.4
-	CALL clock_ON
-JMP beggining
+	CALL ligar_relogio 					; Chama a subrotina para ligar o relógio
+JMP inicio 								; Loop infinito para manter o programa rodando
 
-clock_ON:
-		JB SWITCH_0, clock_ON ; subrotina para ligar relogio se switch 0 acionado
-		SETB P0.7
-		MOV A, #0c0h
+ligar_relogio:
+		JB SWITCH_0, ligar_relogio 		; Se o switch 0 estiver acionado, continua chamando a subrotina para ligar o relógio
+		SETB P0.7 						; Ativa decoder dos displays de 7 segmentos (liga)
+		MOV A, #0c0h 					; Insere o equivalente ao número 0 no acumulador
+		MOV P1, A						; Move número para porta 1 (P1.0 a P1.7)
+		JB SWITCH_0, desligar_relogio 	; Se o switch 0 estiver acionado, chama a subrotina para desligar o relógio
+	CALL delay_switch
+		MOV A, #0f9h					; Insere o equivalente ao número 1 no acumulador
 		MOV P1, A
-	CALL switch_delay
-		MOV A, #0f9h
+		JB SWITCH_0, desligar_relogio 	
+	CALL delay_switch
+		MOV A, #0a4h					; Insere o equivalente ao número 2 no acumulador
 		MOV P1, A
-	CALL switch_delay
-		MOV A, #0a4h
+		JB SWITCH_0, desligar_relogio 	
+	CALL delay_switch
+		MOV A, #0b0h					; Insere o equivalente ao número 3 no acumulador
 		MOV P1, A
-	CALL switch_delay
-		MOV A, #0b0h
+		JB SWITCH_0, desligar_relogio 	
+	CALL delay_switch
+		MOV A, #099h					; Insere o equivalente ao número 4 no acumulador
 		MOV P1, A
-	CALL switch_delay
-		MOV A, #099h
+		JB SWITCH_0, desligar_relogio 	
+	CALL delay_switch
+		MOV A, #092h					; Insere o equivalente ao número 5 no acumulador
 		MOV P1, A
-	CALL switch_delay
-		MOV A, #092h
+		JB SWITCH_0, desligar_relogio 	
+	CALL delay_switch
+		MOV A, #082h					; Insere o equivalente ao número 6 no acumulador
 		MOV P1, A
-	CALL switch_delay
-		MOV A, #082h
+		JB SWITCH_0, desligar_relogio 	
+CALL delay_switch
+		MOV A, #0f8h					; Insere o equivalente ao número 7 no acumulador
 		MOV P1, A
-	CALL switch_delay
-		MOV A, #0f8h
+		JB SWITCH_0, desligar_relogio 	
+	CALL delay_switch
+		MOV A, #080h					; Insere o equivalente ao número 8 no acumulador
 		MOV P1, A
-	CALL switch_delay
-		MOV A, #080h
+		JB SWITCH_0, desligar_relogio 	
+	CALL delay_switch
+		MOV A, #090h					; Insere o equivalente ao número 9 no acumulador
 		MOV P1, A
-	CALL switch_delay
-		MOV A, #090h
-		MOV P1, A
-	CALL switch_delay
+		JB SWITCH_0, desligar_relogio 	
+
 RET
 
-switch_delay:
-	JB SWITCH_1, delay_1	; pula instrucoes para delay de 1s se switch nao for acionado (bit = 1)
-	CALL delay_025 ; so executa se switch foi acionado (bit = 0)
+desligar_relogio: 						; Subrotina para desligar o relógio.
+    CLR P0.7							; Desativa decoder dos displays de 7 segmentos (desliga)
+
 RET
 
-delay_1: ; delay 1 segundo
-    MOV R2, #1000000000
+delay_switch: 							; Subrotina geral de delay
+    MOV R0, #250 						; Define tamanho do delay secundário em ms
+    JB SWITCH_1, delay_1s 				; Se switch não for acionado (bit = 1), pula instruções para subrotina delay_1s
+    CALL delay_025s 					; Só executa se switch foi acionado (bit = 0)
+
 RET
 
-delay_025: ; delay 0.25 segundo
-    MOV R2, #250000000 ; 250/4 = 62.5 ~ 62
+delay_025s: 							; Delay de 250ms ajustado para tempo de instrução
+
+    MOV R2, #248 						; Valores ajustados para considerar tempo de instrução
+    MOV R3, #248 						; Valores ajustados para considerar tempo de instrução
+
+    delay_loop_2: DJNZ R2, delay_loop_2 ; Itera 248 vezes (2us * 250)
+    delay_loop_3: DJNZ R3, delay_loop_3 ; Itera 248 vezes (2us * 250)
+
+    DJNZ R0, delay_025s 				; Itera tudo acima a quantidade de vezes em R0 = (250 * (2 * 500us)) = 250ms
+
 RET
-	
+
+delay_1s: ; Delay de 1s ajustado para tempo de instrução.
+
+    MOV R4, #4 							; Contador de loop para delay de 1s (4 * subrotina de 250ms)
+
+    delay_1s_loop:
+        CALL delay_025s 				; Chama delay de 250ms ajustado para tempo de instrução
+        DJNZ R4, delay_1s_loop 			; Decrementa contador de loop e faz loop se não for zero
+
+RET 
