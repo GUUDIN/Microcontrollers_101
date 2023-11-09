@@ -3,6 +3,14 @@ registradores e endereços de memória em microcontroladores
 
 Este projeto abrange várias técnicas de manipulação de dados em Assembly utilizando o set de instruções do MCS-51, incluindo instruções de transferência de dados, instruções aritméticas, instruções lógicas e booleanas e instruções de desvio incondicional e condicional.
 
+## Alunos
+
+Pedro Borges Gudin - 12547997
+
+Mateus Santos Messias - 12548000
+
+Guilherme Castanon Silva Pereira - 11801140
+
 <a name='transferencia'></a>
 ## 1. Manipulação de dados em registradores e endereços de memória por meio de instruções de transferência de dados
 
